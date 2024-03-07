@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using radzki.DileraHornMod.util;
 using UnityEngine;
 
 namespace radzki.DileraHornMod.patch;
@@ -11,6 +10,11 @@ namespace radzki.DileraHornMod.patch;
 [HarmonyPatch(typeof(NoisemakerProp))]
 public class NoisemakerPropAirhornPatch
 {
+
+    private static AssetBundle _bundle = Plugin.Instance.GetBundle();
+    private static AudioClip _sound = _bundle.LoadAsset<AudioClip>("buzina.wav");
+    private static AudioClip _soundFar = _bundle.LoadAsset<AudioClip>("buzinaFar.wav");
+
     /// <summary>
     /// Method called when instantiating NoisemakerProp.
     ///
@@ -29,12 +33,8 @@ public class NoisemakerPropAirhornPatch
         if (__instance.itemProperties.itemName != "Airhorn")
             return;
 
-        string sound_location = Plugin.Instance.Info.Location.TrimEnd("DileraHorn.dll".ToCharArray()) + "\\Sounds\\buzina.wav";
-
-        AudioClip audio_override = AudioUtility.LoadFromDiskToAudioClip(sound_location, AudioType.WAV);
-
-        __instance.noiseSFX[0] = audio_override;
-        __instance.noiseSFXFar[0] = audio_override;
+        __instance.noiseSFX[0] = _sound;
+        __instance.noiseSFXFar[0] = _soundFar;
 
     }
 }

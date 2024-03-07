@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 4173388210
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c2a8910541db4a742033e37b163b2738
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9a2ca7bdbd1871f7131daf57de908e0c
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: c2a8910541db4a742033e37b163b2738
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Sounds/buzina.wav
+- Assets/Sounds/buzinaFar.wav
+Dependencies: []

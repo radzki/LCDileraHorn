@@ -2,6 +2,8 @@
 using BepInEx.Logging;
 using HarmonyLib;
 using radzki.DileraHornMod.patch;
+using System.IO;
+using UnityEngine;
 
 namespace radzki.DileraHornMod;
 
@@ -15,6 +17,8 @@ public class Plugin : BaseUnityPlugin
 
     private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
 
+    private static AssetBundle _bundle;
+
 
     public Plugin()
     {
@@ -23,7 +27,6 @@ public class Plugin : BaseUnityPlugin
 
     private void Awake()
     {
-
         Log.LogInfo($"Applying patches...");
         ApplyPluginPatch();
         Log.LogInfo($"Patches applied");
@@ -35,5 +38,14 @@ public class Plugin : BaseUnityPlugin
     private void ApplyPluginPatch()
     {
         _harmony.PatchAll(typeof(NoisemakerPropAirhornPatch));
+    }
+
+    public AssetBundle GetBundle()
+    {
+        string assets_dir = Path.Combine(Path.GetDirectoryName(Plugin.Instance.Info.Location), "dilerahorn");
+
+        _bundle = AssetBundle.LoadFromFile(assets_dir);
+
+        return _bundle;
     }
 }
