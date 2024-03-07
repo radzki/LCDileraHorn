@@ -2,7 +2,7 @@
 using BepInEx.Logging;
 using HarmonyLib;
 using YourThunderstoreTeam.patch;
-using YourThunderstoreTeam.service;
+//using YourThunderstoreTeam.service;
 
 namespace YourThunderstoreTeam;
 
@@ -13,9 +13,10 @@ public class Plugin : BaseUnityPlugin
 
     public static ManualLogSource Log => Instance.Logger;
 
+    public static string location = ((BaseUnityPlugin) Instance).Info.Location.TrimEnd("DileraHorn.dll".ToCharArray());
+
     private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
 
-    public TemplateService Service;
 
     public Plugin()
     {
@@ -24,7 +25,6 @@ public class Plugin : BaseUnityPlugin
 
     private void Awake()
     {
-        Service = new TemplateService();
 
         Log.LogInfo($"Applying patches...");
         ApplyPluginPatch();
@@ -36,7 +36,6 @@ public class Plugin : BaseUnityPlugin
     /// </summary>
     private void ApplyPluginPatch()
     {
-        _harmony.PatchAll(typeof(ShipLightsPatch));
-        _harmony.PatchAll(typeof(PlayerControllerBPatch));
+        _harmony.PatchAll(typeof(NoisemakerPropAirhornPatch));
     }
 }
