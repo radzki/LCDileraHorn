@@ -1,7 +1,9 @@
-﻿using BepInEx;
-using HarmonyLib;
+﻿using HarmonyLib;
+using radzki.DileraHornMod.util;
+using UnityEngine;
 
-namespace YourThunderstoreTeam.patch;
+namespace radzki.DileraHornMod.patch;
+
 
 /// <summary>
 /// Patch to modify the behavior of the ship lights.
@@ -24,13 +26,15 @@ public class NoisemakerPropAirhornPatch
     private static void PatchAudioSource(ref NoisemakerProp __instance, object[] __args)
     {
 
-        
-        Plugin.Log.LogInfo("RADZKI: DileraHorn location: " +  Plugin.location);
-        Plugin.Log.LogInfo("RADZKI: Patching Airhorn sound!");
-
         if (__instance.itemProperties.itemName != "Airhorn")
             return;
 
-        Plugin.Log.LogInfo("RADZKI: Airhorn NoiseMaker was instantiated!");
+        string sound_location = Plugin.Instance.Info.Location.TrimEnd("DileraHorn.dll".ToCharArray()) + "\\Sounds\\buzina.wav";
+
+        AudioClip audio_override = AudioUtility.LoadFromDiskToAudioClip(sound_location, AudioType.WAV);
+
+        __instance.noiseSFX[0] = audio_override;
+        __instance.noiseSFXFar[0] = audio_override;
+
     }
 }

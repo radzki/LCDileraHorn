@@ -1,10 +1,10 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using YourThunderstoreTeam.patch;
-//using YourThunderstoreTeam.service;
+using radzki.DileraHornMod.patch;
 
-namespace YourThunderstoreTeam;
+namespace radzki.DileraHornMod;
+
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 public class Plugin : BaseUnityPlugin
@@ -12,8 +12,6 @@ public class Plugin : BaseUnityPlugin
     public static Plugin Instance { get; set; }
 
     public static ManualLogSource Log => Instance.Logger;
-
-    public static string location = ((BaseUnityPlugin) Instance).Info.Location.TrimEnd("DileraHorn.dll".ToCharArray());
 
     private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
 
